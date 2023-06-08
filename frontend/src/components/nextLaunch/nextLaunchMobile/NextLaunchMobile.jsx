@@ -61,20 +61,25 @@ function NextLaunchMobile() {
           <div className={styles.descriptionMobileContainer}>
             <div className={styles.missionMobileContainer}>
               <p className={styles.titleMobileDescription}>Mission Name</p>
+
               {data.results ? (
                 <h1 className={styles.missionMobileName}>
-                  {data.results[launcherIndex].mission.name}
+                  {data.results[launcherIndex].mission !== null
+                    ? data.results[launcherIndex].mission.name
+                    : "NO MISSION"}
                 </h1>
               ) : null}
 
-              {data.results ? (
-                <InfosModal
-                  missionName={data.results[launcherIndex].mission.name}
-                  missionDescription={
-                    data.results[launcherIndex].mission.description
-                  }
-                />
-              ) : null}
+              {data.results
+                ? data.results[launcherIndex].mission !== null && (
+                    <InfosModal
+                      missionName={data.results[launcherIndex].mission.name}
+                      missionDescription={
+                        data.results[launcherIndex].mission.description
+                      }
+                    />
+                  )
+                : null}
             </div>
             <div className={styles.rocketMobileContainer}>
               <p className={styles.titleMobileDescription}>Rocket</p>

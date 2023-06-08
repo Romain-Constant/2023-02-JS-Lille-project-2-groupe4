@@ -7,9 +7,9 @@ import Weather from "./weather/Weather";
 import InfosModal from "./infosModal/InfosModal";
 
 function NextLaunchContainer() {
-  const url = `https://ll.thespacedevs.com/2.2.0/launch/upcoming/`;
+  const url = `https://ll.thespacedevs.com/2.2.0/launch/upcoming/?format=json`;
 
-  const [launcherIndex, setLauncherIndex] = useState(0);
+  const [launcherIndex, setLauncherIndex] = useState(1);
   const [data, setData] = useState({});
 
   useEffect(() => {
@@ -40,6 +40,8 @@ function NextLaunchContainer() {
     );
   };
 
+  console.log(data);
+
   return (
     <div className={styles.nextLaunchContainer}>
       <div className={styles.titleContainer}>
@@ -69,21 +71,26 @@ function NextLaunchContainer() {
           ) : null}
           <div className={styles.descriptionContainer}>
             <div className={styles.missionContainer}>
-              <p className={styles.titleDescription}>Mission Name</p>
+              <p className={styles.titleMobileDescription}>Mission Name</p>
+
               {data.results ? (
                 <h1 className={styles.missionName}>
-                  {data.results[launcherIndex].mission.name}
+                  {data.results[launcherIndex].mission !== null
+                    ? data.results[launcherIndex].mission.name
+                    : "NO MISSION"}
                 </h1>
               ) : null}
 
-              {data.results ? (
-                <InfosModal
-                  missionName={data.results[launcherIndex].mission.name}
-                  missionDescription={
-                    data.results[launcherIndex].mission.description
-                  }
-                />
-              ) : null}
+              {data.results
+                ? data.results[launcherIndex].mission !== null && (
+                    <InfosModal
+                      missionName={data.results[launcherIndex].mission.name}
+                      missionDescription={
+                        data.results[launcherIndex].mission.description
+                      }
+                    />
+                  )
+                : null}
             </div>
             <div className={styles.rocketContainer}>
               <p className={styles.titleDescription}>Rocket</p>
