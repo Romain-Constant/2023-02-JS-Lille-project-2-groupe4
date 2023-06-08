@@ -40,8 +40,6 @@ function NextLaunchContainer() {
     );
   };
 
-  console.log(data);
-
   return (
     <div className={styles.nextLaunchContainer}>
       <div className={styles.titleContainer}>
